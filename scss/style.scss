@@ -1,0 +1,523 @@
+// ==============================
+// 変数
+// ==============================
+
+$font-color_default: rgb(134, 111, 111);
+$font-color_date: #e37b89;
+$color_corp: #e3a8b1;
+$font-color_sub: #b6a489;
+
+$site-width_1: 980px;
+$site-width_2: 800px;
+
+$font-size_s: 12px;
+$font-size_m: 14px;
+$font-size_default: 16px;
+$font-size_l: 18px;
+$font-size_xl: 24px;
+$font-size_xxl: 30px;
+$font-size_3l: 38px;
+
+$space_s: 5px;
+$space_m: 10px;
+$space_l: 15px;
+$space_xl: 20px;
+$space_xxl: 30px;
+$space_3l: 40px;
+
+$font-family_corp: 'Kaushan Script', cursive;
+
+// ==============================
+// マップ型変数
+// ==============================
+
+$breakpoints: (
+  'sm': 'screen and (max-width: 414px)',
+  'md': 'screen and (max-width: 768px)',
+  'lg': 'screen and (max-width: 1000px)',
+  'xl': 'screen and (max-width: 1200px)',
+) !default;
+
+// ==============================
+// mixin
+// ==============================
+
+@mixin mq($breakpoint: sm) {
+  @media #{map-get($breakpoints, $breakpoint)} {
+    @content;
+  }
+}
+
+// ==================================
+// base
+// ==================================
+
+html, body {
+  width: 100%;
+  font-size: $font-size_default;
+  line-height: 1.6;
+  text-size-adjust: 100%;
+  letter-spacing: 0.1em;
+}
+
+p {
+  font-family: 'Montserrat', sans-serif;
+}
+
+a {
+  color: $font-color_default;
+  text-decoration: none;
+  transition: .3s;
+}
+
+a:hover {
+  color: $color_corp;
+  transition: .3s;
+}
+
+img {
+  width: 100%;
+  vertical-align: bottom;
+}
+
+.bgColor-base {
+  background: #fff;
+}
+
+// ==================================
+// header
+// ==================================
+
+.header {
+  box-sizing: border-box;
+  width: 100%;
+  height: 80px;
+  color: $font-color_default;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: $space_xl;
+  padding-right: $space_xl;
+  position: fixed;
+  transition: .3s;
+  z-index: 2;
+  &.float-active {
+    transition: .3s;
+    background: rgba(236, 113, 113, 0.8);
+  }
+  @include mq('md') {
+    height: 75px;
+    padding-right: $space_l;
+    padding-left: $space_l;
+  }
+  @include mq() {
+    height: 60px;
+    padding-left: $space_l;
+    padding-right: $space_l;
+  }
+  .shop-name {
+    font-size: $font-size_3l;
+    font-family: $font-family_corp;
+    font-weight: bold;
+    @include mq('md') {
+      font-size: $font-size_xxl;
+    }
+    @include mq() {
+      font-size: $font-size_xl;
+    }
+  }
+}
+
+// ==================================
+// menu
+// ==================================
+
+.nav-menu {
+  @include mq() {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: -100%;
+    background: rgba(255, 255, 255, .85);
+    width: 100%;
+    height: 100vh;
+    padding-top: 50px;
+    transition: .5s;
+    &.active {
+      transition: .5s;
+      transform: translateX(-100%);
+      z-index: 2;
+    }
+  }
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  font-size: $font-size_xl;
+  font-family: $font-family_corp;
+  &-item {
+    margin-right: $space_xl;
+  }
+  @include mq('md') {
+    font-size: $font-size_m;
+  }
+  @include mq() {
+    display: block;
+    font-size: $font-size_xxl;
+    &-item {
+      margin-right: initial;
+    }
+    &-link {
+      display: block;
+      padding: $space_l;
+      text-align: center;
+    }
+  }
+}
+
+.menu-trigger {
+  display: none;
+  @include mq() {
+    display: inline-block;
+  }
+  transition: all .4s;
+  box-sizing: border-box;
+  position: relative;
+  width: 40px;
+  height: 32px;
+  z-index: 3;
+  span {
+    display: inline-block;
+    transition: all .4s;
+    box-sizing: border-box;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background-color: $font-color_default;
+    border-radius: 4px;
+    &:nth-of-type(1) {
+      top: 0;
+    }
+    &:nth-of-type(2) {
+      top: 14px;
+    }
+    &:nth-of-type(3) {
+      bottom: 0;
+    }
+  }
+  &.active span {
+    &:nth-of-type(1) {
+      transform: translateY(12px) rotate(-45deg);
+    }
+    &:nth-of-type(2) {
+      opacity: 0;
+    }
+    &:nth-of-type(3) {
+      transform: translateY(-15px) rotate(45deg);
+    }
+  }
+}
+
+// ==================================
+// hero
+// ==================================
+
+.hero {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &:before {
+    content: '';
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    background-image: url("../images/hero.jpg");
+    background-position: center;
+    width: 100%;
+    height: 100vh;
+    background-size: cover;
+  }
+  &-shop-name {
+    font-size: 180px;
+    font-family: $font-family_corp;
+    color: rgb(194, 58, 58);
+    text-shadow: 0 0 20px black;
+    @include mq('xl') {
+      text-align: center;
+    }
+    @include mq('md') {
+      font-size: 100px;
+    }
+    @include mq() {
+      font-size: 60px;
+    }
+  }
+  br {
+    display: none;
+    @include mq() {
+      display: block;
+    }
+  }
+}
+
+// ==================================
+// container
+// ==================================
+
+.container {
+  width: $site-width_1;
+  @include mq('md') {
+    width: 100%;
+  }
+  @include mq() {
+    width: 100%;
+  }
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 60px;
+  padding-bottom: 45px;
+  &-fluid {
+    width: 100%;
+  }
+  &-title {
+    font-family: $font-family_corp;
+    border-top: solid 3px rgb(194, 58, 58);/*上線*/
+    border-bottom: solid 3px rgb(194, 58, 58);/*下線*/
+    text-align: center;
+    font-size: $font-size_3l;
+    margin-bottom: $space_3l;
+    @include mq('md') {
+      width: 80%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    @include mq() {
+      width: 80%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+  &-body {
+    font-size: $font-size_l;
+    @include mq('md') {
+      padding-left: $space_xl;
+      padding-right: $space_xl;
+    }
+    @include mq() {
+      padding-left: $space_l;
+      padding-right: $space_l;
+    }
+  }
+}
+
+// ==================================
+// container-sub
+// ==================================
+
+.container-sub {
+  display: flex;
+  align-items: center;
+  width: $site-width_2;
+  height: 250px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: $space_3l;
+  @include mq('md') {
+    width: 100%;
+    padding-left: $space_l;
+    padding-right: $space_l;
+    box-sizing: border-box;
+  }
+  @include mq() {
+    width: 100%;
+    height: 350px;
+    flex-direction: column;
+  }
+  .img-radius {
+    height: 180px;
+    width: 180px;
+    border-radius: 50%;
+  }
+  &-title {
+    margin-left: $space_xl;
+    margin-right: $space_3l;
+    font-size: $font-size_xxl;
+    font-family: $font-family_corp;
+    @include mq() {
+      margin: $space_s 0 $space_s 0;
+    }
+  }
+  .text {
+    @include mq() {
+      height: 150px;
+      padding-left: $space_l;
+      padding-right: $space_l;
+    }
+  }
+}
+
+// ==================================
+// panel
+// ==================================
+
+.panel-group {
+  display: flex;
+  justify-content: space-between;
+  @include mq() {
+    flex-wrap: wrap;
+  }
+  .panel {
+    margin-right: $space_m;
+    &:last-child {
+      margin-right: 0;
+    }
+    @include mq() {
+      margin-right: 0;
+      &:nth-of-type(2) {
+        margin-top: $space_xxl;
+        margin-bottom: $space_xxl;
+      }
+    }
+  }
+  .panel-head {
+    text-align: center;
+    font-size: $font-size_xxl;
+    font-family: $font-family_corp;
+  }
+  .panel-img {
+    display: inline-block;
+    height: 240px;
+    border-radius: 5%;
+  }
+  .panel-text {
+    padding-left: $space_l;
+    padding-right: $space_l;
+    margin-top: $space_m;
+    font-size: $font-size_m;
+  }
+}
+
+// ==================================
+// form
+// ==================================
+
+.form {
+  width: 100%;
+  &-m {
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    @include mq('md') {
+      width: 80%;
+    }
+    @include mq() {
+      width: 100%;
+    }
+  }
+}
+
+.input {
+  display: block;
+  margin-bottom: $space_m;
+  border: 3px solid #f6f5f4;
+  border-radius: 4px;
+  outline: none;
+  height: 60px;
+  font-size: $font-size_l;
+  color: $font-color_default;
+  box-sizing: border-box;
+  &-l {
+    padding: 5px 10px;
+    width: 100%;
+  }
+  &:focus {
+    border: 3px solid $color_corp;
+  }
+  &-textarea {
+    height: 200px;
+  }
+  &::placeholder {
+    color: #ccc;
+  }
+}
+
+// ==================================
+// btn
+// ==================================
+
+.btn {
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  box-sizing: border-box;
+  transition: .3s;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  &:hover {
+    transform: translateY(-3px);
+    transition: .3s;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  }
+  &-corp {
+    color: $font-color_default;
+    background: #C6FFDD;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #f7797d, #FBD786, #C6FFDD);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #f7797d, #FBD786, #C6FFDD); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  }
+  &-l {
+    padding: $space_l $space_xxl;
+    width: 100%;
+    font-size: $font-size_l;
+  }
+}
+
+// ==================================
+// ACCESS
+// ==================================
+
+.access-wrapper {
+  @include mq() {
+    padding-left: $space_l;
+    padding-right: $space_l;
+  }
+  .addr {
+    text-align: center;
+    margin-bottom: $space_xl;
+    .bold {
+      font-weight: bold;
+    }
+  }
+  .gmap {
+    height: 0;
+    overflow: hidden;
+    padding-bottom: 56.25%;
+    position: relative;
+    iframe {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 100%;
+    }
+  }
+}
+
+// ==================================
+// footer
+// ==================================
+
+.footer {
+  background: black;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80px;
+  @include mq() {
+    font-size: $space_m;
+  }
+}
